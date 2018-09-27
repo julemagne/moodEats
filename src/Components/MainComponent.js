@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Webcam from 'react-webcam';
+import cuisine from "../cuisine.json";
 
 class Main extends Component {
     constructor() {
@@ -7,6 +8,7 @@ class Main extends Component {
         this.state = {
             weather: [],
             maxEmotion: '',
+            food: '',
             emotionString: null,
             zipcode: '27519'
         };
@@ -38,6 +40,7 @@ class Main extends Component {
                 }).then(response => {
                     return response.json();
                 }).then(data => {
+                    var maxEmotion = '';
                     if (data[0]) {
                         let emotions = data[0].faceAttributes.emotion;
                         var maxEmotionNum = null;
@@ -53,53 +56,68 @@ class Main extends Component {
                     } else {
                         this.setState({ emotionString: "Please try another picture" });
                     }
+                    return maxEmotion;
+                }
+            ).then(maxEmotion => {
+                // Get the weather
+                let url = 'http://api.openweathermap.org/data/2.5/weather?zip=' + (this.state.zipcode || '27519') + ',us&appid=' + weatherApiKey;
+                fetch(url).then(results => {
+                    return results.json();
+                }).then(data => {
+                    var weather = data.weather[0];
+                    this.setState({weather: weather});
+
+                // Determine which type of cuisine
+                    this.setState({food: cuisine[maxEmotion][weather['id']]});
                 })
-        })
 
-        // Get the weather
-        let url = 'http://api.openweathermap.org/data/2.5/weather?zip=' + (this.state.zipcode || '27519') + ',us&appid=' + weatherApiKey;
-        fetch(url)
-            .then(results => {
-                return results.json();
-            }).then(data => {
-                this.setState({ weather: data.weather[0] });
+                // Find restaurants by cuisine
             })
+        })
+      };
 
-        // Determine which type of cuisine
+        render() 
+            {
+                const videoConstraints = {
+                    width: 1280,
+                    height: 720,
+                    facingMode: "user"
+                  };
+            return(
+                <div>
+                    <div>
+                        <p>
+                            Please enter your zip code:
+                        </p>
+                        <input type = "text" value = {this.state.zipcode} onChange = {this.handleChange}/>
+                    <div>
+                        <Webcam
+                        audio={false}
+                        height={350}
+                        ref={this.setRef}
+                        screenshotFormat="image/jpeg"
+                        width={350}
+                        videoConstraints={videoConstraints}
+                        />
+                    </div>
+                    
+                    <div>
+                        <button onClick={this.capture}>
+                            Capture photo
+                        </button>
+                    </div>
 
+                    <div className="weatherContainer">
+                        The weather is: { this.state.weather.description }
+                    </div>
 
-        // Find restaurants by cuisine
-    };
-
-
-    render() {
-        const videoConstraints = {
-            width: 1280,
-            height: 720,
-            facingMode: "user"
-        };
-        return (
-            <div>
-                <br />
-                Please enter your zip code:
-                    <input type="text" value={this.state.zipcode} onChange={this.handleChange} />
-                <br />
-                <Webcam
-                    audio={false}
-                    height={350}
-                    ref={this.setRef}
-                    screenshotFormat="image/jpeg"
-                    width={350}
-                    videoConstraints={videoConstraints}
-                />
-
-                <button onClick={this.capture}>Capture photo</button>
-
-                <div className="weatherContainer">
-                    The weather is: {this.state.weather.description}
-                </div>
-                <div className="weatherContainer">
-                    {this.state.emotionString}
+                    <div className="weatherContainer">
+                        { this.state.emotionString }
+                    </div>
+                    
+                    <div className = "weatherContainer">
+                        The food is: { this.state.food }
+                    </div>
                 </div>
                 <script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAjo2E9Np9S3d6zg60Tz9MaFKoOPCUC1gQ&libraries=places'></script>
             </div>
