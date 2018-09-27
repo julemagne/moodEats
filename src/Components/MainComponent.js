@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import Webcam from 'react-webcam';
+import cuisine from "../cuisine.json";
 
 class Main extends Component {
     constructor () {
         super();
         this.state = {
             weather: [],
-            maxEmotion: ''
+            maxEmotion: '',
+            food: ''
         };
     }
 
@@ -41,25 +43,25 @@ class Main extends Component {
                         this.setState({maxEmotion: emotion});
                     }
                 }
-    
+
                 return maxEmotion;
-            })
-         })
-
+            }).then(maxEmotion => {
             // Get the weather
-            fetch('http://api.openweathermap.org/data/2.5/weather?zip=27519,us&appid=0a936f2103ce9629dc0c77c09e4a6114')
-            .then(results => {
-                return results.json();
-            }).then(data => {
-                this.setState({weather: data.weather[0]});
+                fetch('http://api.openweathermap.org/data/2.5/weather?zip=27519,us&appid=0a936f2103ce9629dc0c77c09e4a6114')
+                .then(results => {
+                    return results.json();
+                }).then(data => {
+                    var weather = data.weather[0];
+                    this.setState({weather: weather});
+
+                // Determine which type of cuisine
+                    this.setState({food: cuisine[maxEmotion][weather['id']]});
+                })
+
+                // Find restaurants by cuisine
             })
-
-            // Determine which type of cuisine
-
-
-            // Find restaurants by cuisine
+        })
       };
-
 
         render() 
             {
@@ -70,22 +72,31 @@ class Main extends Component {
                   };
             return(
                 <div>
-                <Webcam
-                audio={false}
-                height={350}
-                ref={this.setRef}
-                screenshotFormat="image/jpeg"
-                width={350}
-                videoConstraints={videoConstraints}
-              />
-              
-              <button onClick={this.capture}>Capture photo</button>
-           
+                    <div>
+                        <Webcam
+                        audio={false}
+                        height={350}
+                        ref={this.setRef}
+                        screenshotFormat="image/jpeg"
+                        width={350}
+                        videoConstraints={videoConstraints}
+                        />
+                    </div>
+                    
+                    <div>
+                        <button onClick={this.capture}>Capture photo</button>
+                    </div>
+
                     <div className="weatherContainer">
                         The weather is: { this.state.weather.description }
                     </div>
+
                     <div className="weatherContainer">
                         The emotion is: { this.state.maxEmotion }
+                    </div>
+                    
+                    <div className = "weatherContainer">
+                        The food is: { this.state.food }
                     </div>
                 </div>
             )
