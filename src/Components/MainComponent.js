@@ -85,7 +85,7 @@ class Main extends Component {
                             }).then(data => {
                                 var listItems = data.results.map(function(item) {
                                     return (
-                                    <li key="{id}" >{item.displayString}</li>
+                                    <li key={item.id} >{item.displayString}</li>
                                     );
                                 });
 
