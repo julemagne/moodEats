@@ -7,6 +7,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <Main />
         <header className="App-header">
           <div className="bg">
             <div className="mountain">
@@ -33,8 +34,7 @@ class App extends Component {
             <div className="cloud"></div>
           </div>
         </header>
-        <Main />
-        </div>
+      </div>
     );
   }
 }
