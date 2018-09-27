@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import MapContainer from './GoogleHomeComponent';
+import MapContainer from './Components/GoogleHomeComponent';
+import Main from './Components/MainComponent';
 
 class App extends Component {
   render() {
@@ -12,6 +13,7 @@ class App extends Component {
           <h1 className="App-title">Welcome to React</h1>
         </header>
         <MapContainer/>
+        <Main />
       </div>
     );
   }
