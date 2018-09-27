@@ -91,7 +91,7 @@ class Main extends Component {
             facingMode: "user"
         };
         return (
-            <div>
+            <div className="inFront">
                 <div>
                     <p>
                         Please enter your zip code:

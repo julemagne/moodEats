@@ -8,11 +8,33 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+          <div className="bg">
+            <div className="mountain">
+              <div className="mountain-top">
+                <div className="mountain-cap-1"></div>
+                <div className="mountain-cap-2"></div>
+                <div className="mountain-cap-3"></div>
+              </div>
+            </div>
+            <div className="mountain-two">
+              <div className="mountain-top">
+                <div className="mountain-cap-1"></div>
+                <div className="mountain-cap-2"></div>
+                <div className="mountain-cap-3"></div>
+              </div>
+            </div>
+            <div className="mountain-three">
+              <div className="mountain-top">
+                <div className="mountain-cap-1"></div>
+                <div className="mountain-cap-2"></div>
+                <div className="mountain-cap-3"></div>
+              </div>
+            </div>
+            <div className="cloud"></div>
+          </div>
         </header>
         <Main />
-      </div>
+        </div>
     );
   }
 }
