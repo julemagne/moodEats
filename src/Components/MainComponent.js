@@ -11,7 +11,8 @@ class Main extends Component {
             food: '',
             emotionString: null,
             zipcode: '27519',
-            restaurants: null
+            restaurants: null,
+            foodString: ''
         };
         this.handleChange = this.handleChange.bind(this);
     }
@@ -68,7 +69,12 @@ class Main extends Component {
                         var weather = data.weather[0];
                         this.setState({ weather: weather });
                         // Determine which type of cuisine
-                        this.setState({ food: cuisine[maxEmotion][weather['id']] });
+                        if (this.state.maxEmotion) {
+                            this.setState({ food: cuisine[maxEmotion][weather['id']] });
+                            this.setState({ foodString: "The suggested food type is: " + this.state.food });
+                        } else {
+                            this.setState({ foodString: "Try again!" });
+                        }
                         return data.coord;
                     }).then(coordinates => {
                         if (coordinates && this.state.food) {
@@ -130,7 +136,7 @@ class Main extends Component {
                     </div>
 
                     <div className="weatherContainer">
-                        The food is: {this.state.food}
+                        { this.state.foodString }
                     </div>
 
                     <div>
