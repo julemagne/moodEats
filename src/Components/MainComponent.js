@@ -28,7 +28,7 @@ class Main extends Component {
         // Take Picture and get mood
         const AzureFace_SUBSCRIPTION_KEY = 'b087994442994dbf92cc35088a0dd104';
         const weatherApiKey = '0a936f2103ce9629dc0c77c09e4a6114';
-        const mapQuest_Api_KEY = '';
+        const mapQuest_Api_KEY = 'IzG0KQI7Fh7Kex49ViWuhCpi7CG0CGh7';
 
         this.webcam.getCanvas().toBlob(blob => {
             fetch('https://westcentralus.api.cognitive.microsoft.com/face/v1.0/detect?returnFaceId=false&returnFaceLandmarks=false&returnFaceAttributes=emotion',
@@ -69,17 +69,24 @@ class Main extends Component {
                         this.setState({ weather: weather });
                         // Determine which type of cuisine
                         this.setState({ food: cuisine[maxEmotion][weather['id']] });
+                        return data.coord;
+                    }).then(coordinates => {
+                        if (coordinates && this.state.food) {
+                            // Find restaurants by cuisine
+                            const url = 'https://www.mapquestapi.com/search/v4/place?location=' + coordinates.lon + ',' + coordinates.lat + '&q=' + this.state.food + '&sort=distance&feedback=false&key=' + mapQuest_Api_KEY;
+                            fetch(url).then(results => {
+                                return results.json();
+                            }).then(data => {
+                                var listItems = data.results.map(function(item) {
+                                    return (
+                                    <li key="{id}" >{item.displayString}</li>
+                                    );
+                                });
+
+                                this.setState({ restaurants: listItems });
+                            })
+                        }
                     })
-
-                    // Find restaurants by cuisine
-                    // fetch(url).then(results => {
-                    //     return results.json();
-                    // }).then(data => {
-                    //     var restaurants = data.weather[0];
-                    //     this.setState({ restaurants: restaurants });
-
-
-                    // })
                 })
         })
     };
@@ -125,8 +132,13 @@ class Main extends Component {
                     <div className="weatherContainer">
                         The food is: {this.state.food}
                     </div>
+
+                    <div>
+                    <ul>
+                        { this.state.restaurants}
+                    </ul>
+        </div>
                 </div>
-                <script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAjo2E9Np9S3d6zg60Tz9MaFKoOPCUC1gQ&libraries=places'></script>
             </div>
         )
     }
