@@ -112,7 +112,7 @@ class Main extends Component {
                     </div>
 
                     <div className="weatherContainer">
-                        The emotion is: { this.state.emotionString }
+                        { this.state.emotionString }
                     </div>
                     
                     <div className = "weatherContainer">
