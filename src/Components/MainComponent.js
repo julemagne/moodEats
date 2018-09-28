@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Webcam from 'react-webcam';
 import cuisine from "../cuisine.json";
+import MapQuestStaticMap from 'react-primitives-mapquest-static-map';
 
 class Main extends Component {
     constructor() {
@@ -11,7 +12,10 @@ class Main extends Component {
             food: '',
             emotionString: null,
             zipcode: '27519',
-            restaurants: null
+            restaurants: null,
+            foodString: '',
+            coordinates: { lat: '35.7915', lon: '-78.7811' },
+            markers: [{ latitude: 35.7915, longitude: -78.7811 }]
         };
         this.handleChange = this.handleChange.bind(this);
     }
@@ -68,12 +72,18 @@ class Main extends Component {
                         var weather = data.weather[0];
                         this.setState({ weather: weather });
                         // Determine which type of cuisine
-                        this.setState({ food: cuisine[maxEmotion][weather['id']] });
+                        if (this.state.maxEmotion) {
+                            this.setState({ food: cuisine[maxEmotion][weather['id']] });
+                            this.setState({ foodString: "The suggested food type is: " + this.state.food });
+                        } else {
+                            this.setState({ foodString: "Try again!" });
+                        }
                         return data.coord;
                     }).then(coordinates => {
-                        if (coordinates && this.state.food) {
+                        if (coordinates) {
+                            this.setState({ coordinates: { lat: String(coordinates.lat), lon: String(coordinates.lon) } })
                             // Find restaurants by cuisine
-                            const url = 'https://www.mapquestapi.com/search/v4/place?location=' + coordinates.lon + ',' + coordinates.lat + '&q=' + this.state.food + '&sort=distance&feedback=false&key=' + mapQuest_Api_KEY;
+                            const url = 'https://www.mapquestapi.com/search/v4/place?location=' + coordinates.lon + ',' + coordinates.lat + '&q=' + 'chinese' + '&sort=distance&feedback=false&key=' + mapQuest_Api_KEY;
                             fetch(url).then(results => {
                                 return results.json();
                             }).then(data => {
@@ -83,6 +93,12 @@ class Main extends Component {
                                     );
                                 });
 
+                                var mapList = data.results.map(item => {
+                                    let cd = item.place.geometry.coordinates;
+                                    return { latitude: cd[1], longitude: cd[0] }
+                                });
+
+                                this.setState({ markers: mapList });
                                 this.setState({ restaurants: listItems });
                             })
                         }
@@ -130,14 +146,23 @@ class Main extends Component {
                     </div>
 
                     <div className="weatherContainer">
-                        The food is: {this.state.food}
+                        { this.state.foodString }
                     </div>
 
                     <div>
                         <ul>
-                            {this.state.restaurants}
+                            { this.state.restaurants}
                         </ul>
                     </div>
+
+                    <MapQuestStaticMap
+                        latitude={this.state.coordinates.lat}
+                        longitude={this.state.coordinates.lon}
+                        zoom={12}
+                        size={{ width: 500, height: 500 }}
+                        scale={2}
+                        locations={this.state.markers}
+                    />
                 </div>
             </div>
         )
