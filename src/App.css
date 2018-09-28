@@ -1,19 +1,81 @@
 body {
-  background: rgba(252, 178, 31, 0.5); /* orange */
+  background: rgba(252, 178, 31, 0.5);
+  /* orange */
+}
+
+input {
+  padding: 0.5em;
+  margin: 0.5em;
+}
+
+.novaText {
+  font-family: 'Nova Round', cursive;
+  color: rgb(52, 0, 195);
+  text-shadow: 3px 3px 0px rgba(255, 150, 150, 1);
+}
+
+.title {
+  font-weight: 800;
+  font-size: 100px;
+  margin: 0;
+}
+
+ul {
+  list-style: none;
+  text-align: left;
+}
+
+.vertically_centered {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.output_list {
+  list-style: none;
+  text-align: left;
 }
 
 @keyframes open-on-load {
-  from { opacity: 0; max-height: 0;}
-  to   { opacity: 1; max-height: 350px;}
+  from {
+    opacity: 0;
+    max-height: 0;
+  }
+
+  to {
+    opacity: 1;
+    max-height: 350px;
+  }
 }
 
 .webcamAccordion {
-  padding: 0;
-  margin: 0;
+  height: 350px;
+  margin-left: 2em;
 }
 
 video {
   animation: 3s ease-in-out 1s 1 open-on-load;
+  margin: 0 auto;
+}
+
+.mood_eats_container {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+}
+
+.zipcode_row_container {
+  display: inline-block;
+  grid-template-columns: 1fr;
+}
+
+.photo_row_container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.map_row_container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 .App {
@@ -136,4 +198,50 @@ video {
   content: '';
   left: 25px;
   top: -10px;
+}
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.buttons {
+  margin: 0;
+  text-align: center;
+}
+
+.btn-hover {
+  width: 200px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  margin: 20px;
+  height: 55px;
+  text-align: center;
+  border: none;
+  background-size: 300% 100%;
+
+  border-radius: 50px;
+  transition: all .4s ease-in-out;
+}
+
+.btn-hover:hover {
+  background-position: 100% 0;
+  transition: all .4s ease-in-out;
+}
+
+.btn-hover:focus {
+  outline: none;
+}
+
+.btn-hover.smash_dis_button {
+  background-image: linear-gradient(to right, #6253e1, #852D91, #A3A1FF, #F24645);
+  box-shadow: 0 4px 15px 0 rgba(126, 52, 161, 0.75);
+  margin: 0 auto;
+}
+
+.li-spacing {
+  margin-bottom: 5px;
 }
