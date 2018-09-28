@@ -66,7 +66,7 @@ class Main extends Component {
                 }
                 ).then(maxEmotion => {
                     // Get the weather
-                    let url = 'http://api.openweathermap.org/data/2.5/weather?zip=' + (this.state.zipcode || '27519') + ',us&appid=' + weatherApiKey;
+                    let url = 'https://api.openweathermap.org/data/2.5/weather?zip=' + (this.state.zipcode || '27519') + ',us&appid=' + weatherApiKey;
                     fetch(url).then(results => {
                         return results.json();
                     }).then(data => {
@@ -190,7 +190,7 @@ class Main extends Component {
                         </div>
 
                         <MapQuestStaticMap
-                            apiKey={this.state.mapQuest_Api_KEY}
+                            ApiKey={this.state.mapQuest_Api_KEY}
                             latitude={this.state.coordinates.lat}
                             longitude={this.state.coordinates.lon}
                             zoom={12}
