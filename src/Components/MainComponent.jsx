@@ -84,7 +84,7 @@ class Main extends Component {
                         if (coordinates) {
                             this.setState({ coordinates: { lat: String(coordinates.lat), lon: String(coordinates.lon) } })
                             // Find restaurants by cuisine
-                            const url = 'https://www.mapquestapi.com/search/v4/place?location=' + coordinates.lon + ',' + coordinates.lat + '&q=' + this.state.food + '&sort=distance&feedback=false&key=' + mapQuest_Api_KEY;
+                            const url = 'https://www.mapquestapi.com/search/v4/place?location=' + coordinates.lon + ',' + coordinates.lat + '&q=restaurant%20' + this.state.food + '&sort=distance&feedback=false&key=' + mapQuest_Api_KEY;
                             fetch(url).then(results => {
                                 return results.json();
                             }).then(mapData => {
