@@ -1,18 +1,27 @@
 body {
-  background: rgba(252, 178, 31, 0.5);
+  background: rgba(251, 205, 54, 0.4);
   /* orange */
 }
 
 h2 {
   color: rgb(214, 3, 3);
   margin-top: 0;
-  margin-bottom: 0;
+  margin-bottom: 0.2em;
+  font-size: 1.5em;
 }
 
 h3 {
   color: rgb(245, 125, 125);
   margin-top: 0;
+  margin-bottom: 0;
   font-size: 1em;
+}
+
+.li-spacing {
+  border-radius: 10px 0px 0px 10px;
+  padding: 0.5em;
+  margin-bottom: 1em;
+  background: rgba(255, 255, 255, 0.4);
 }
 
 input {
@@ -67,6 +76,10 @@ ul {
   text-align: left;
 }
 
+.weatherContainer {
+  padding: 0.5em;
+}
+
 @keyframes open-on-load {
   from {
     opacity: 0;
@@ -102,7 +115,9 @@ video {
 
 .mood_eats_container {
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 1fr 2fr;  
+  background: rgba(255, 255, 255, 0.5);
+  padding-bottom: 1.5em;
 }
 
 .zipcode_row_container {
@@ -123,7 +138,13 @@ video {
 
 .map_row_container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 2fr 1fr;
+  padding: 0;
+  margin: 0;
+}
+
+.map_row_container > div {
+  border-radius: 14px;
 }
 
 .App {
@@ -206,24 +227,12 @@ video {
   width: 70px;
   height: 30px;
   background: #fff;
-  -webkit-border-radius: 100px / 50px;
   border-radius: 100px / 50px;
 }
 
 .cloud {
   bottom: 100px;
-  -webkit-animation: cloud 50s infinite linear;
   animation: cloud 50s infinite linear;
-}
-
-@-webkit-keyframes cloud {
-  0% {
-    left: -100px;
-  }
-
-  100% {
-    left: 1000px;
-  }
 }
 
 @keyframes cloud {
@@ -249,8 +258,6 @@ video {
 }
 
 * {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 
@@ -287,9 +294,5 @@ video {
 .btn-hover.smash_dis_button {
   background-image: linear-gradient(to right, #6253e1, #852D91, #A3A1FF, #F24645);
   box-shadow: 0 4px 15px 0 rgba(126, 52, 161, 0.75);
-  margin: 0 auto;
-}
-
-.li-spacing {
-  margin-bottom: 1em;
+  margin: 1em auto;
 }

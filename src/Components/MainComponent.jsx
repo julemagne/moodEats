@@ -88,14 +88,14 @@ class Main extends Component {
                             fetch(url).then(results => {
                                 return results.json();
                             }).then(mapData => {
-                                let listItems = mapData.results.map(function (item) {
+                                let listItems = mapData.results.map(function (restaurant) {
                                     return (
-                                        <li className="li-spacing" key={item.id} >
+                                        <li className="li-spacing" key={restaurant.id} >
                                             <h2>
-                                                {item.name}
+                                                {restaurant.name}
                                             </h2>
                                             <h3>
-                                                {item.displayString}
+                                                {restaurant.displayString}
                                             </h3>
                                         </li>
                                     );
@@ -155,13 +155,13 @@ class Main extends Component {
                         <div className="output_list vertically_centered">
                             {this.state.weather && (
                                 <div className="weatherContainer">
-                                    <span className="listName">Current weather:</span> {this.state.weather.description}
+                                    <span className="listName">Current weather:</span> {this.state.weather.description}!
                                 </div>
                             )}
 
                             {this.state.maxEmotion ? (
                                 <div className="weatherContainer">
-                                    <span className="listName">The emotion is:</span> {this.state.maxEmotion}
+                                    <span className="listName">The emotion is:</span> {this.state.maxEmotion}!
                                 </div>
                             ) : (
                                     <div className="weatherContainer">
@@ -171,7 +171,7 @@ class Main extends Component {
 
                             {this.state.food ? (
                                 <div className="weatherContainer">
-                                    <span className="listName">The suggested food type is:</span> {this.state.food}
+                                    <span className="listName">The suggested food type is:</span> {this.state.food}!
                                 </div>
                             ) : (
                                     <div className="weatherContainer">
