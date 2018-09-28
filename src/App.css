@@ -2,6 +2,20 @@ body {
   background: rgba(252, 178, 31, 0.5); /* orange */
 }
 
+@keyframes open-on-load {
+  from { opacity: 0; max-height: 0;}
+  to   { opacity: 1; max-height: 350px;}
+}
+
+.webcamAccordion {
+  padding: 0;
+  margin: 0;
+}
+
+video {
+  animation: 3s ease-in-out 1s 1 open-on-load;
+}
+
 .App {
   text-align: center;
 }

@@ -79,7 +79,7 @@ class Main extends Component {
                             }).then(data => {
                                 var listItems = data.results.map(function(item) {
                                     return (
-                                    <li key="{id}" >{item.displayString}</li>
+                                        <li key={item.id} >{item.displayString}</li>
                                     );
                                 });
 
@@ -104,7 +104,7 @@ class Main extends Component {
                         Please enter your zip code:
                     </p>
                     <input type="text" value={this.state.zipcode} onChange={this.handleChange} />
-                    <div>
+                    <div className="webcamAccordion">
                         <Webcam
                             audio={false}
                             height={350}
