@@ -3,6 +3,18 @@ body {
   /* orange */
 }
 
+h2 {
+  color: rgb(214, 3, 3);
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+h3 {
+  color: rgb(245, 125, 125);
+  margin-top: 0;
+  font-size: 1em;
+}
+
 input {
   padding: 0.5em;
   margin: 0.5em;
@@ -17,7 +29,8 @@ input {
 .title {
   font-weight: 800;
   font-size: 100px;
-  margin: 0;
+  text-align: left;
+  margin: 0.1em;
 }
 
 ul {
@@ -25,10 +38,28 @@ ul {
   text-align: left;
 }
 
+.listName {
+  color: rgb(28, 97, 224);
+  text-shadow: 1px 1px 0px rgb(187, 133, 33);
+}
+
 .vertically_centered {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.question_list {
+  font-size: 1.5em;
+  text-align: center;
+}
+
+.rotate-350 {
+  transform: rotate(350deg);
+}
+
+.rotate-357 {
+  transform: rotate(357deg);
 }
 
 .output_list {
@@ -48,9 +79,20 @@ ul {
   }
 }
 
+@keyframes wobble {
+  0%, 100% {
+    transform: rotate(2deg);
+  }
+
+  50% {
+    transform: rotate(-2deg);
+  }
+}
+
 .webcamAccordion {
   height: 350px;
   margin-left: 2em;
+  animation: 3s ease-in-out 3s infinite wobble;
 }
 
 video {
@@ -66,6 +108,12 @@ video {
 .zipcode_row_container {
   display: inline-block;
   grid-template-columns: 1fr;
+}
+
+.zipcodeLabel {
+  font-size: 1.5em;
+  color: rgb(6, 146, 81);
+  text-shadow: 1px 1px 0px rgb(224, 160, 41);
 }
 
 .photo_row_container {
@@ -213,8 +261,8 @@ video {
 
 .btn-hover {
   width: 200px;
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 1.2em;
+  font-weight: 500;
   color: #fff;
   cursor: pointer;
   margin: 20px;
@@ -222,13 +270,13 @@ video {
   text-align: center;
   border: none;
   background-size: 300% 100%;
-
   border-radius: 50px;
   transition: all .4s ease-in-out;
 }
 
 .btn-hover:hover {
   background-position: 100% 0;
+  font-weight: 600;
   transition: all .4s ease-in-out;
 }
 
@@ -243,5 +291,5 @@ video {
 }
 
 .li-spacing {
-  margin-bottom: 5px;
+  margin-bottom: 1em;
 }

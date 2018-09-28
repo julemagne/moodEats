@@ -90,7 +90,14 @@ class Main extends Component {
                             }).then(mapData => {
                                 let listItems = mapData.results.map(function (item) {
                                     return (
-                                        <li className="li-spacing" key={item.id} >{item.displayString}</li>
+                                        <li className="li-spacing" key={item.id} >
+                                            <h2>
+                                                {item.name}
+                                            </h2>
+                                            <h3>
+                                                {item.displayString}
+                                            </h3>
+                                        </li>
                                     );
                                 });
 
@@ -117,11 +124,11 @@ class Main extends Component {
             <div className="inFront bg">
                 <div>
                     <div className="mood_eats_container novaText">
-                        <ul className="vertically_centered">
+                        <ul className="vertically_centered question_list rotate-350">
                             <li>Are you moody?</li>
                             <li>Do you need eats?</li>
                         </ul>
-                        <h1 className="title">MOOD EATS</h1>
+                        <h1 className="title rotate-357">MOOD EATS</h1>
                     </div>
 
                     <div className="photo_row_container">
@@ -138,7 +145,7 @@ class Main extends Component {
 
                         <div className="buttons vertically_centered">
                             <div className="zipcode_row_container">
-                                Please enter your zip code: <input type="text" value={this.state.zipcode} onChange={this.handleChange} />
+                                <span className="zipcodeLabel">Please enter your zip code:</span> <input type="text" value={this.state.zipcode} onChange={this.handleChange} />
                             </div>
                             <button className="btn-hover smash_dis_button" onClick={this.capture}>
                                 Gimmie Food!
@@ -148,13 +155,13 @@ class Main extends Component {
                         <div className="output_list vertically_centered">
                             {this.state.weather && (
                                 <div className="weatherContainer">
-                                    Current weather: {this.state.weather.description}
+                                    <span className="listName">Current weather:</span> {this.state.weather.description}
                                 </div>
                             )}
 
                             {this.state.maxEmotion ? (
                                 <div className="weatherContainer">
-                                    The emotion is: {this.state.maxEmotion}
+                                    <span className="listName">The emotion is:</span> {this.state.maxEmotion}
                                 </div>
                             ) : (
                                     <div className="weatherContainer">
@@ -164,7 +171,7 @@ class Main extends Component {
 
                             {this.state.food ? (
                                 <div className="weatherContainer">
-                                    The suggested food type is: {this.state.food}
+                                    <span className="listName">The suggested food type is:</span> {this.state.food}
                                 </div>
                             ) : (
                                     <div className="weatherContainer">
@@ -175,9 +182,11 @@ class Main extends Component {
                     </div>
                     <div className="map_row_container">
                         <div>
-                            <ul>
-                                {this.state.restaurants}
-                            </ul>
+                            {this.state.food && (
+                                <ul>
+                                    {this.state.restaurants}
+                                </ul>
+                            )}
                         </div>
 
                         <MapQuestStaticMap
