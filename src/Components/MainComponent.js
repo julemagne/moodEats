@@ -8,6 +8,7 @@ class Main extends Component {
         super();
         this.state = {
             weather: [],
+            mapQuest_Api_KEY: 'IzG0KQI7Fh7Kex49ViWuhCpi7CG0CGh7',
             maxEmotion: '',
             food: '',
             emotionString: null,
@@ -32,7 +33,7 @@ class Main extends Component {
         // Take Picture and get mood
         const AzureFace_SUBSCRIPTION_KEY = 'b087994442994dbf92cc35088a0dd104';
         const weatherApiKey = '0a936f2103ce9629dc0c77c09e4a6114';
-        const mapQuest_Api_KEY = 'IzG0KQI7Fh7Kex49ViWuhCpi7CG0CGh7';
+        const mapQuest_Api_KEY = this.state.mapQuest_Api_KEY;
 
         this.webcam.getCanvas().toBlob(blob => {
             fetch('https://westcentralus.api.cognitive.microsoft.com/face/v1.0/detect?returnFaceId=false&returnFaceLandmarks=false&returnFaceAttributes=emotion',
@@ -155,7 +156,8 @@ class Main extends Component {
                         </ul>
                     </div>
 
-                    <MapQuestStaticMap
+                    <MapQuestStaticMap 
+                        ApiKey={this.state.mapQuest_Api_KEY}
                         latitude={this.state.coordinates.lat}
                         longitude={this.state.coordinates.lon}
                         zoom={12}
